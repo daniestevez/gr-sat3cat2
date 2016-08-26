@@ -1,2 +1,2 @@
-# gr-3cat2
+# gr-sat3cat2
 3CAT-2 GNUradio telemetry parser
