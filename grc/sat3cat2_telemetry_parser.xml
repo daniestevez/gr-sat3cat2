@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<block>
+  <name>3CAT-2 telemetry parser</name>
+  <key>sat3cat2_telemetry_parser</key>
+  <category>sat3cat2</category>
+  <import>import sat3cat2</import>
+  <make>sat3cat2.telemetry_parser()</make>
+  <sink>
+    <name>in</name>
+    <type>message</type>
+  </sink>
+</block>

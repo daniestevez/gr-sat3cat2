@@ -18,5 +18,5 @@
 # Boston, MA 02110-1301, USA.
 
 install(FILES
-    DESTINATION share/gnuradio/grc/blocks
+    sat3cat2_telemetry_parser.xml DESTINATION share/gnuradio/grc/blocks
 )

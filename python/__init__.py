@@ -31,4 +31,5 @@ except ImportError:
 	pass
 
 # import any pure python here
+from telemetry_parser import telemetry_parser
 #
