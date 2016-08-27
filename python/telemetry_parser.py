@@ -50,20 +50,22 @@ class telemetry_parser(gr.basic_block):
             return
         packet = str(bytearray(pmt.u8vector_elements(msg)))
 
-        data = packet[17:].split()
-
-        status = {'1' : 'Survival', '2' : 'Sun-safe', '3' : 'Nominal',\
-                  '4' : 'TX', '5' : 'RX', '6' : 'Payload', '7' : 'Payload' }
-        adcs = {'0' : 'auto', '1' : 'manual'}
-        if data[5] == '0':
-            detumbling = 'Detumbling  ({},{},{})nT'.format(float(data[7]), float(data[8]), float(data[9]))
-        else:
-            detumbling = 'SS-nominal  Sun: ({:.2f},{:.2f},{:.2f})'.format(float(data[7]), float(data[8]), float(data[9]))
-        string = status[data[0]] + '  {:.2f}V  {}mA'.format(int(data[1])/1000.0, int(data[2])) + \
-          '  EPS: {}ºC   Ant: {}ºC'.format(data[3], data[4]) + \
-          '  ADCS ' + adcs[data[6]] + '  ' + detumbling + \
-          '  Control: ({:.1e},{:.1e},{:.1e})V'.format(float(data[10]), float(data[11]), float(data[12]))
-
-        print(string)
-
+        try:
+            data = packet[17:].split()
         
+            status = {'1' : 'Survival', '2' : 'Sun-safe', '3' : 'Nominal',\
+                    '4' : 'TX', '5' : 'RX', '6' : 'Payload', '7' : 'Payload' }
+            adcs = {'0' : 'auto', '1' : 'manual'}
+            if data[5] == '0':
+                detumbling = 'Detumbling  ({},{},{})nT'.format(float(data[7]), float(data[8]), float(data[9]))
+            else:
+                detumbling = 'SS-nominal  Sun: ({:.2f},{:.2f},{:.2f})'.format(float(data[7]), float(data[8]), float(data[9]))
+            string = status[data[0]] + '  {:.2f}V  {}mA'.format(int(data[1])/1000.0, int(data[2])) + \
+            '  EPS: {}ºC   Ant: {}ºC'.format(data[3], data[4]) + \
+            '  ADCS ' + adcs[data[6]] + '  ' + detumbling + \
+            '  Control: ({:.1e},{:.1e},{:.1e})V'.format(float(data[10]), float(data[11]), float(data[12]))
+
+            print(string)
+        except IndexError, ValueError:
+            print "Malformed beacon:"
+            print packet[17:]
